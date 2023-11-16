@@ -1,5 +1,6 @@
 import { View, Image, StyleSheet } from "react-native";
 import Text from "./Text";
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   logo: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   languageTag: {
-    backgroundColor: "#0366d6",
+    backgroundColor: theme.colors.primary,
     color: "white",
     padding: 5,
     alignSelf: "flex-start",
