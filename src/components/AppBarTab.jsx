@@ -3,7 +3,7 @@ import { Pressable, Text, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   tab: {
-    paddingTop: 15,
+    paddingTop: 25,
     color: "white",
   },
 });
