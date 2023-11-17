@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Constants from "expo-constants";
 import theme from "../theme";
 import AppBarTab from "./AppBarTab";
@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
   },
   containerItem: {
     marginRight: 15,
+    flexGrow: 1,
   },
   // ...
 });
@@ -22,10 +23,8 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <ScrollView horizontal>
-        <AppBarTab style={styles.containerItem} to="/" text="Repositories" />
-        <AppBarTab style={styles.containerItem} to="/signin" text="Sign in" />
-      </ScrollView>
+      <AppBarTab style={styles.containerItem} to="/" text="Repositories" />
+      <AppBarTab style={styles.containerItem} to="/signin" text="Sign in" />
     </View>
   );
 };
