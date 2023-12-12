@@ -1,11 +1,25 @@
 import { TextInput as NativeTextInput, StyleSheet } from "react-native";
+import theme from "../theme";
 
-// eslint-disable-next-line no-unused-vars
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  textInput: {
+    paddingVerical: 10,
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderStyle: "solid",
+    fontSize: theme.fontSizes.body,
+    fontFamily: theme.fonts.main,
+    color: theme.colors.textPrimary,
+    borderRadius: theme.roundness,
+    borderColor: "#aab2bb",
+  },
+  error: {
+    borderColor: theme.colors.error,
+  },
+});
 
-// eslint-disable-next-line no-unused-vars
 const TextInput = ({ style, error, ...props }) => {
-  const textInputStyle = [style];
+  const textInputStyle = [styles.textInput, error && styles.error, style];
 
   return <NativeTextInput style={textInputStyle} {...props} />;
 };

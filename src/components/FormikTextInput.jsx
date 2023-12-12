@@ -3,22 +3,16 @@ import { useField } from "formik";
 
 import TextInput from "./TextInput";
 import Text from "./Text";
+import theme from "../theme";
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 2,
-    paddingHorizontal: 10,
-    height: 50,
-  },
   errorText: {
-    marginLeft: 10,
-    color: "#d73a4a",
+    marginTop: 5,
+    color: theme.colors.error,
   },
 });
 
-const FormikTextInput = ({ name, style, ...props }) => {
+const FormikTextInput = ({ name, ...props }) => {
   const [field, meta, helpers] = useField(name);
 
   // TODO: Check if the field is touched and the error message is present
@@ -27,11 +21,6 @@ const FormikTextInput = ({ name, style, ...props }) => {
   return (
     <>
       <TextInput
-        style={[
-          styles.inputContainer,
-          style,
-          showError && { borderColor: "#d73a4a" }, // Apply red border if there is an error
-        ]}
         onChangeText={(value) => helpers.setValue(value)}
         onBlur={() => helpers.setTouched(true)}
         value={field.value}

@@ -1,3 +1,4 @@
+// TODO: Style text in React Native application
 import { Text as NativeText, StyleSheet } from "react-native";
 
 import theme from "../theme";

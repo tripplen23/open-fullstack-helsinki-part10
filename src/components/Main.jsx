@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { Route, Routes } from "react-router-native";
+import { Route, Routes, Navigate } from "react-router-native";
 
 import SignIn from "./SignIn";
 import RepositoryList from "./RepositoryList";
@@ -20,9 +20,9 @@ const Main = () => {
       <AppBar />
       <Routes>
         <Route path="/" element={<RepositoryList />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/sign-in" element={<SignIn />} />
         {/* Catching paths that don't match any previously defined path */}
-        <Route path="*" element={<RepositoryList />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </View>
   );
