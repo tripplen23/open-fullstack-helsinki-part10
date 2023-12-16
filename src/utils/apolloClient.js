@@ -1,8 +1,9 @@
 // TODO: Configure the Apollo Client to connect to Apollo Server.
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import Constants from "expo-constants";
 
 const httpLink = createHttpLink({
-  uri: "http://192.168.1.110:4000/graphql",
+  uri: Constants.manifest.extra.env_apollo,
 });
 
 const createApolloClient = () => {

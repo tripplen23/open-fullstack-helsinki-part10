@@ -9,12 +9,12 @@ const useRepositories = () => {
   const { error, loading } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
-      console.log("GraphQL data received:", data);
+      // console.log("GraphQL data received:", data);
       setRepositories(data.repositories);
     },
   });
 
-  console.log("useRepositories hook executed. Repositories:", repositories);
+  // console.log("useRepositories hook executed. Repositories:", repositories);
 
   return { repositories, loading, error };
 };
