@@ -1,25 +1,24 @@
 import { StatusBar } from "expo-status-bar";
 import { NativeRouter } from "react-router-native";
 import { ApolloProvider } from "@apollo/client";
-import Constants from "expo-constants";
 
 import Main from "./src/components/Main";
-import createApolloClient from "./src/utils/apolloClient";
 
-const apolloClient = createApolloClient();
+import createApolloClient from "./src/utils/apolloClient"; // Storage instance.
+import AuthStorage from "./src/utils/authStorage"; // Authentication storage for storing user's access token.
+import AuthStorageContext from "./src/contexts/AuthStorageContext"; // Provide the storage instance to the descendants of the context.
+
+const authStorage = new AuthStorage();
+const apolloClient = createApolloClient(authStorage);
 
 const App = () => {
-  console.log(
-    "Constanst.manifest.extra.env is: ",
-    Constants.manifest.extra.env
-  );
-  console.log("Constanst.manifest.extra: ", Constants.manifest.extra);
-
   return (
     <>
       <NativeRouter>
         <ApolloProvider client={apolloClient}>
-          <Main />
+          <AuthStorageContext.Provider value={authStorage}>
+            <Main />
+          </AuthStorageContext.Provider>
         </ApolloProvider>
       </NativeRouter>
       <StatusBar style="auto" />

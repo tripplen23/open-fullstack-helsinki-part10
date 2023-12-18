@@ -15,13 +15,13 @@ class AuthStorage {
 
       return accessToken ? JSON.parse(accessToken) : [];
     } catch (error) {
-      console.error(error);
+      console.error("Error with getAccessToken util: ", error);
     }
   }
 
   // eslint-disable-next-line no-unused-vars
   async setAccessToken(accessToken) {
-    // TODO: Add/Set the access token for the storage
+    // TODO: Add the access token for the storage
     try {
       await AsyncStorage.setItem(
         `${this.namespace}:accessToken`,
@@ -30,7 +30,7 @@ class AuthStorage {
 
       return accessToken;
     } catch (error) {
-      console.error(error);
+      console.error("Error with setAccessToken util: ", error);
     }
   }
 
@@ -39,7 +39,7 @@ class AuthStorage {
     try {
       await AsyncStorage.removeItem(`${this.namespace}:accessToken`);
     } catch (error) {
-      console.error(error);
+      console.error("Error with removeAccessToken util: ", error);
     }
   }
 }

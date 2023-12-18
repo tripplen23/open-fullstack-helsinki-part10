@@ -9,7 +9,7 @@ export const CREATE_USER = gql`
   }
 `;
 
-export const AUTHORIZE_USER = gql`
+export const LOGGIN_USER = gql`
   mutation authorize($username: String!, $password: String!) {
     authenticate(credentials: { username: $username, password: $password }) {
       accessToken
