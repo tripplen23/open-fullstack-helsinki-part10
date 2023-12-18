@@ -2,7 +2,8 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
-import useSignin from "../hooks/useSignin";
+import { useNavigate } from "react-router-native";
+import useSignIn from "../hooks/useSignIn";
 
 import Button from "./Button";
 import FormikTextInput from "./FormikTextInput";
@@ -52,7 +53,8 @@ const SignInForm = ({ onSubmit }) => {
 
 // TODO: Sign in logic
 const SignIn = () => {
-  const [signIn] = useSignin();
+  const [signIn] = useSignIn();
+  const navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
@@ -63,6 +65,10 @@ const SignIn = () => {
         "Access Token for this user is: ",
         result.data.authenticate.accessToken
       );
+
+      if (result.data.authenticate.accessToken) {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error is: ", error);
     }
