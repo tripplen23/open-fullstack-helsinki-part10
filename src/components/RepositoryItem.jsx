@@ -1,5 +1,5 @@
+import React from "react";
 import { View, Image, StyleSheet } from "react-native";
-
 import Text from "./Text";
 import theme from "../theme";
 import formatInThousands from "../utils/fotmatInThousands";
@@ -63,7 +63,11 @@ const styles = StyleSheet.create({
 const CountItem = ({ label, count }) => {
   return (
     <View style={styles.countItem}>
-      <Text style={styles.countItemCount} fontWeight="bold">
+      <Text
+        testID="repositoryCounts"
+        style={styles.countItemCount}
+        fontWeight="bold"
+      >
         {formatInThousands(count)}
       </Text>
       <Text color="textSecondary">{label}</Text>
@@ -94,6 +98,7 @@ const RepositoryItem = ({ repository }) => {
         <View style={styles.contentContainer}>
           {/* Full name */}
           <Text
+            testID="repositoryName"
             style={styles.nameText}
             fontWeight="bold"
             fontSize="subheading"
@@ -103,14 +108,20 @@ const RepositoryItem = ({ repository }) => {
           </Text>
 
           {/* Description */}
-          <Text style={styles.descriptionText} color="textSecondary">
+          <Text
+            testID="repositoryDescription"
+            style={styles.descriptionText}
+            color="textSecondary"
+          >
             {description}
           </Text>
 
           {/* Language */}
           {language ? (
             <View style={styles.languageContainer}>
-              <Text style={styles.languageText}>{language}</Text>
+              <Text testID="repositoryLanguage" style={styles.languageText}>
+                {language}
+              </Text>
             </View>
           ) : null}
         </View>

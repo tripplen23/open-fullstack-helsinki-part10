@@ -1,3 +1,4 @@
+import React from "react";
 import { FlatList, View, StyleSheet } from "react-native";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
@@ -21,6 +22,7 @@ export const RepositoryListContainer = ({ repositories }) => {
 
   return (
     <FlatList
+      testID="repositoryItem"
       data={repositoryNodes}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => <RepositoryItem repository={item} />}
