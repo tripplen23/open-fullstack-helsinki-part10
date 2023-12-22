@@ -33,6 +33,7 @@ const SignInForm = ({ onSubmit }) => {
       <View style={styles.fieldContainer}>
         {/* Username Formik text input */}
         <FormikTextInput
+          testID="formikUsername"
           name="username"
           placeholder="Username"
           autoCapitalize="none"
@@ -41,13 +42,29 @@ const SignInForm = ({ onSubmit }) => {
       <View style={styles.fieldContainer}>
         {/* Password Formik text input */}
         <FormikTextInput
+          testID="formikPassword"
           name="password"
           placeholder="Password"
           secureTextEntry
         />
       </View>
-      <Button onPress={onSubmit}>Sign in</Button>
+      <Button testID="formikSubmit" onPress={onSubmit}>
+        Sign in
+      </Button>
     </View>
+  );
+};
+
+// TODO: Sign in container
+export const SignInContainer = ({ onSubmit }) => {
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+    </Formik>
   );
 };
 
@@ -74,15 +91,7 @@ const SignIn = () => {
     }
   };
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
-    </Formik>
-  );
+  return <SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;

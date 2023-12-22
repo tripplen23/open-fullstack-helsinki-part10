@@ -78,7 +78,7 @@ describe("RepositoryList", () => {
       expect(language[0]).toHaveTextContent("TypeScript");
       expect(language[1]).toHaveTextContent("JavaScript");
 
-      // TODO: forks count
+      // TODO: repository count
       const counts = getAllByTestId("repositoryCounts");
       expect(counts).toHaveLength(8);
       expect(counts[0]).toHaveTextContent("21,9k");
