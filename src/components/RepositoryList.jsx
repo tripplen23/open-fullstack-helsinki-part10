@@ -12,9 +12,7 @@ const styles = StyleSheet.create({
 // TODO: For separate each Repository item
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryList = () => {
-  const { repositories } = useRepositories();
-
+export const RepositoryListContainer = ({ repositories }) => {
   // TODO: Get the nodes from the edges array:
   // Extract the actual repositories into the repositoryNodes variable
   const repositoryNodes = repositories
@@ -29,6 +27,12 @@ const RepositoryList = () => {
       ItemSeparatorComponent={ItemSeparator}
     />
   );
+};
+
+const RepositoryList = () => {
+  const { repositories } = useRepositories();
+
+  return <RepositoryListContainer repositories={repositories} />;
 };
 
 export default RepositoryList;
