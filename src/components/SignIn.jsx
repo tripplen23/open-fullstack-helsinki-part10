@@ -3,10 +3,10 @@ import { View, StyleSheet } from "react-native";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-native";
-import useSignIn from "../hooks/useSignIn";
 
 import Button from "./Button";
 import FormikTextInput from "./FormikTextInput";
+import useSignIn from "../hooks/useSignIn";
 
 const styles = StyleSheet.create({
   container: {
@@ -76,19 +76,8 @@ const SignIn = () => {
   const onSubmit = async (values) => {
     const { username, password } = values;
 
-    try {
-      const result = await signIn({ username, password });
-      console.log(
-        "Access Token for this user is: ",
-        result.data.authenticate.accessToken
-      );
-
-      if (result.data.authenticate.accessToken) {
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Error is: ", error);
-    }
+    await signIn({ username, password });
+    navigate("/", { replace: true });
   };
 
   return <SignInContainer onSubmit={onSubmit} />;

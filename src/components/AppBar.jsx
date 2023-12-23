@@ -1,13 +1,13 @@
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, Pressable } from "react-native";
 import Constants from "expo-constants";
 import { Link } from "react-router-native";
-import { useQuery } from "@apollo/client";
-import { AUTHORIZED_USER } from "../graphql/queries";
-import useAuthStorage from "../hooks/useAuthStorage";
-import { useApolloClient } from "@apollo/client";
+import { useQuery, useApolloClient } from "@apollo/client";
+import { useNavigate } from "react-router-native";
 
 import theme from "../theme";
 import Text from "./Text";
+import useAuthStorage from "../hooks/useAuthStorage";
+import { GET_CURRENT_USER } from "../graphql/queries";
 
 const styles = StyleSheet.create({
   container: {
@@ -32,41 +32,51 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppBarTab = ({ children, ...props }) => {
-  return (
-    <Link style={styles.tabTouchable} {...props}>
-      <View style={styles.tabContainer}>
-        <Text fontWeight="bold" style={styles.tabText}>
-          {children}
-        </Text>
-      </View>
+const AppBarTab = ({ children, to, ...props }) => {
+  const content = (
+    <View style={styles.tabContainer} {...props}>
+      <Text fontWeight="bold" style={styles.tabText}>
+        {children}
+      </Text>
+    </View>
+  );
+
+  return to ? (
+    <Link to={to} {...props}>
+      {content}
     </Link>
+  ) : (
+    <Pressable {...props}>{content}</Pressable>
   );
 };
 
 const AppBar = () => {
-  const { data, refetch } = useQuery(AUTHORIZED_USER, {
+  const apolloClient = useApolloClient();
+  const authStorage = useAuthStorage();
+  const navigate = useNavigate();
+
+  const { data, refetch } = useQuery(GET_CURRENT_USER, {
     fetchPolicy: "network-only",
   });
 
+  const currentUser = data?.me;
+
   console.log(data);
 
-  const authStorage = useAuthStorage();
-  const apolloClient = useApolloClient();
-
-  const signOutClickHandler = async () => {
-    authStorage.removeAccessToken();
+  const onSignOut = async () => {
+    await authStorage.removeAccessToken();
     apolloClient.resetStore();
     // Trigger a new request to update the data
     await refetch();
+    navigate("/");
   };
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} horizontal>
         <AppBarTab to="/">Repositories</AppBarTab>
-        {data?.me != null ? (
-          <AppBarTab onPress={signOutClickHandler}>Sign out</AppBarTab>
+        {currentUser != null ? (
+          <AppBarTab onPress={onSignOut}>Sign out</AppBarTab>
         ) : (
           <AppBarTab to="/sign-in">Sign in</AppBarTab>
         )}

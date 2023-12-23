@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 class AuthStorage {
@@ -6,41 +5,20 @@ class AuthStorage {
     this.namespace = namespace;
   }
 
-  async getAccessToken() {
-    // TODO: Get the access token for the storage
-    try {
-      const accessToken = await AsyncStorage.getItem(
-        `${this.namespace}:accessToken`
-      );
-
-      return accessToken ? JSON.parse(accessToken) : [];
-    } catch (error) {
-      console.error("Error with getAccessToken util: ", error);
-    }
+  getKey(key) {
+    return `${this.namespace}:${key}`;
   }
 
-  // eslint-disable-next-line no-unused-vars
-  async setAccessToken(accessToken) {
-    // TODO: Add the access token for the storage
-    try {
-      await AsyncStorage.setItem(
-        `${this.namespace}:accessToken`,
-        JSON.stringify(accessToken)
-      );
-
-      return accessToken;
-    } catch (error) {
-      console.error("Error with setAccessToken util: ", error);
-    }
+  getAccessToken() {
+    return AsyncStorage.getItem(this.getKey("accessToken"));
   }
 
-  async removeAccessToken() {
-    // TODO: Remove the access token from the storage
-    try {
-      await AsyncStorage.removeItem(`${this.namespace}:accessToken`);
-    } catch (error) {
-      console.error("Error with removeAccessToken util: ", error);
-    }
+  setAccessToken(accessToken) {
+    return AsyncStorage.setItem(this.getKey("accessToken"), accessToken);
+  }
+
+  removeAccessToken() {
+    return AsyncStorage.removeItem(this.getKey("accessToken"));
   }
 }
 

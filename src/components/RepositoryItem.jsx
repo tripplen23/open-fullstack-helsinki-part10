@@ -1,8 +1,9 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Pressable } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
 import formatInThousands from "../utils/fotmatInThousands";
+import Button from "./Button";
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +57,14 @@ const styles = StyleSheet.create({
     flexGrow: 0,
     paddingVertical: 3,
     paddingHorizontal: 6,
+  },
+  openInGithubContainer: {
+    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  openInGithubButton: {
+    paddingHorizontal: 130,
   },
 });
 
@@ -133,6 +142,20 @@ const RepositoryItem = ({ repository }) => {
         <CountItem count={forksCount} label="Folks" />
         <CountItem count={reviewCount} label="Reviews" />
         <CountItem count={ratingAverage} label="Rating" />
+      </View>
+
+      {/* Open in Github container */}
+      <View style={styles.openInGithubContainer}>
+        <Pressable>
+          <Button
+            onPress={() => {
+              /* Add your onPress logic here */
+            }}
+            style={styles.openInGithubButton}
+          >
+            Open in Github
+          </Button>
+        </Pressable>
       </View>
     </View>
   );

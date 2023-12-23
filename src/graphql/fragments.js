@@ -1,13 +1,13 @@
 import { gql } from "@apollo/client";
 
 export const REPOSITORY_BASE_FIELDS = gql`
-  fragment RepositoryBaseFields on Repository {
+  fragment repositoryBaseFields on Repository {
     id
     name
     ownerName
     fullName
     stargazersCount
-    folksCount
+    forksCount
     url
     ownerAvatarUrl
     description
@@ -17,9 +17,9 @@ export const REPOSITORY_BASE_FIELDS = gql`
 `;
 
 export const USER_BASE_FIELDS = gql`
-  fragment UserBaseFields on User {
+  fragment userBaseFields on User {
     id
     username
-    createAt
+    createdAt
   }
 `;
