@@ -17,6 +17,26 @@ export const GET_REPOSITORIES = gql`
   ${REPOSITORY_BASE_FIELDS}
 `;
 
+export const GET_REPOSITORY = gql`
+  query repository($id: ID!) {
+    repository(id: $id) {
+      createdAt
+      description
+      forksCount
+      fullName
+      id
+      language
+      name
+      ownerAvatarUrl
+      ownerName
+      ratingAverage
+      reviewCount
+      stargazersCount
+      url
+    }
+  }
+`;
+
 export const GET_CURRENT_USER = gql`
   query authorizedUser {
     me {

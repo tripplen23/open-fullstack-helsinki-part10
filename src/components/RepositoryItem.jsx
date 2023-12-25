@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Image, StyleSheet, Pressable } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigate } from "react-router-native";
 import Text from "./Text";
 import theme from "../theme";
 import formatInThousands from "../utils/fotmatInThousands";
-import Button from "./Button";
 
 const styles = StyleSheet.create({
   container: {
@@ -58,14 +58,6 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     paddingHorizontal: 6,
   },
-  openInGithubContainer: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  openInGithubButton: {
-    paddingHorizontal: 130,
-  },
 });
 
 // TODO: Count items in bottom container
@@ -94,70 +86,66 @@ const RepositoryItem = ({ repository }) => {
     ratingAverage,
     reviewCount,
     ownerAvatarUrl,
+    id,
   } = repository;
 
+  const navigate = useNavigate();
+
+  const repositoryPress = () => {
+    console.log("id of repo: ", id);
+    navigate(`/repositories/${id}`);
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.topContainer}>
-        {/* Avatar container */}
-        <View style={styles.avatarContainer}>
-          <Image source={{ uri: ownerAvatarUrl }} style={styles.avatar} />
+    <TouchableOpacity onPress={repositoryPress}>
+      <View style={styles.container}>
+        <View style={styles.topContainer}>
+          {/* Avatar container */}
+          <View style={styles.avatarContainer}>
+            <Image source={{ uri: ownerAvatarUrl }} style={styles.avatar} />
+          </View>
+          {/* Content container */}
+          <View style={styles.contentContainer}>
+            {/* Full name */}
+            <Text
+              testID="repositoryName"
+              style={styles.nameText}
+              fontWeight="bold"
+              fontSize="subheading"
+              numberOfLines={1}
+            >
+              {fullName}
+            </Text>
+
+            {/* Description */}
+            <Text
+              testID="repositoryDescription"
+              style={styles.descriptionText}
+              color="textSecondary"
+            >
+              {description}
+            </Text>
+
+            {/* Language */}
+            {language ? (
+              <View style={styles.languageContainer}>
+                <Text testID="repositoryLanguage" style={styles.languageText}>
+                  {language}
+                </Text>
+              </View>
+            ) : null}
+          </View>
         </View>
-        {/* Content container */}
-        <View style={styles.contentContainer}>
-          {/* Full name */}
-          <Text
-            testID="repositoryName"
-            style={styles.nameText}
-            fontWeight="bold"
-            fontSize="subheading"
-            numberOfLines={1}
-          >
-            {fullName}
-          </Text>
 
-          {/* Description */}
-          <Text
-            testID="repositoryDescription"
-            style={styles.descriptionText}
-            color="textSecondary"
-          >
-            {description}
-          </Text>
-
-          {/* Language */}
-          {language ? (
-            <View style={styles.languageContainer}>
-              <Text testID="repositoryLanguage" style={styles.languageText}>
-                {language}
-              </Text>
-            </View>
-          ) : null}
+        {/* Bottom container */}
+        <View style={styles.bottomContainer}>
+          <CountItem count={stargazersCount} label="Stars" />
+          <CountItem count={forksCount} label="Folks" />
+          <CountItem count={reviewCount} label="Reviews" />
+          <CountItem count={ratingAverage} label="Rating" />
         </View>
       </View>
-
-      {/* Bottom container */}
-      <View style={styles.bottomContainer}>
-        <CountItem count={stargazersCount} label="Stars" />
-        <CountItem count={forksCount} label="Folks" />
-        <CountItem count={reviewCount} label="Reviews" />
-        <CountItem count={ratingAverage} label="Rating" />
-      </View>
-
-      {/* Open in Github container */}
-      <View style={styles.openInGithubContainer}>
-        <Pressable>
-          <Button
-            onPress={() => {
-              /* Add your onPress logic here */
-            }}
-            style={styles.openInGithubButton}
-          >
-            Open in Github
-          </Button>
-        </Pressable>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
