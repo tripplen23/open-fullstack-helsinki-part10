@@ -1,11 +1,13 @@
 import React from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, FlatList } from "react-native";
 import { useParams } from "react-router-native";
 import * as Linking from "expo-linking";
 
 import Button from "./Button";
 import RepositoryItem from "./RepositoryItem";
+import { ReviewItem, ItemSeparator } from "./ReviewItem";
 import useRepository from "../hooks/useRepository";
+import useReviews from "../hooks/useReviews";
 
 const styles = StyleSheet.create({
   container: {
@@ -13,7 +15,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   openInGithubContainer: {
-    marginTop: 10,
+    marginBottom: 10,
     flexDirection: "row",
     justifyContent: "center",
   },
@@ -26,14 +28,29 @@ const SingleRepository = () => {
   const { id } = useParams();
   console.log("ID: ", id);
 
-  const { repository, loading, error } = useRepository(id);
-  if (loading) {
+  const {
+    repository,
+    loading: repoLoading,
+    error: repoError,
+  } = useRepository(id);
+
+  const {
+    reviews,
+    loading: reviewsLoading,
+    error: reviewsError,
+  } = useReviews(id);
+
+  if (repoLoading || reviewsLoading) {
     return <Text>Loading...</Text>;
   }
 
-  if (error) {
-    console.error("Error fetching repository:", error);
-    return <Text>Error fetching repository</Text>;
+  if (repoError || reviewsError) {
+    console.error(
+      "Error fetching repository or reviews:",
+      repoError,
+      reviewsError
+    );
+    return <Text>Error fetching repository or reviews</Text>;
   }
 
   if (!repository) {
@@ -57,6 +74,13 @@ const SingleRepository = () => {
           </Button>
         </Pressable>
       </View>
+      <ItemSeparator />
+      <FlatList
+        data={reviews}
+        renderItem={({ item }) => <ReviewItem review={item} />}
+        keyExtractor={({ node }) => node.id}
+        ItemSeparatorComponent={ItemSeparator}
+      />
     </View>
   );
 };
