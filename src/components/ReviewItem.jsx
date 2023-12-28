@@ -39,14 +39,13 @@ const styles = StyleSheet.create({
   reviewText: {
     //
   },
-  // For separating each Review item
   separator: {
     backgroundColor: "rgb(225, 229, 231)",
     height: 10,
   },
 });
 
-// For separating each Review item
+// TODO: For separating each Review item
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const ReviewItem = ({ review }) => {
@@ -54,9 +53,11 @@ const ReviewItem = ({ review }) => {
 
   return (
     <View style={styles.container}>
+      {/* Rating */}
       <View style={styles.ratingContainer}>
         <Text style={styles.ratingText}>{rating}</Text>
       </View>
+      {/* Infor */}
       <View style={styles.informationContainer}>
         <Text style={styles.usernameText}>{user.username}</Text>
         <Text style={styles.dateText}>

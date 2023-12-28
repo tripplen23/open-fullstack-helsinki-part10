@@ -61,7 +61,7 @@ const AppBar = () => {
 
   const currentUser = data?.me;
 
-  console.log(data);
+  console.log("Current user is: ", data);
 
   const onSignOut = async () => {
     await authStorage.removeAccessToken();
@@ -76,7 +76,10 @@ const AppBar = () => {
       <ScrollView style={styles.scrollView} horizontal>
         <AppBarTab to="/">Repositories</AppBarTab>
         {currentUser != null ? (
-          <AppBarTab onPress={onSignOut}>Sign out</AppBarTab>
+          <>
+            <AppBarTab to="/create-a-review">Create a review</AppBarTab>
+            <AppBarTab onPress={onSignOut}>Sign out</AppBarTab>
+          </>
         ) : (
           <AppBarTab to="/sign-in">Sign in</AppBarTab>
         )}

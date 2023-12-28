@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
 });
 
-// TODO: Count items in bottom container
+// TODO: Count items
 const CountItem = ({ label, count }) => {
   return (
     <View style={styles.countItem}>
@@ -127,13 +127,11 @@ const RepositoryItem = ({ repository }) => {
             </Text>
 
             {/* Language */}
-            {language ? (
-              <View style={styles.languageContainer}>
-                <Text testID="repositoryLanguage" style={styles.languageText}>
-                  {language}
-                </Text>
-              </View>
-            ) : null}
+            <View style={styles.languageContainer}>
+              <Text testID="repositoryLanguage" style={styles.languageText}>
+                {language}
+              </Text>
+            </View>
           </View>
         </View>
 

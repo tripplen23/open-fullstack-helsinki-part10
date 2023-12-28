@@ -4,14 +4,14 @@ import { useQuery } from "@apollo/client";
 import { GET_REPOSITORY } from "../graphql/queries";
 
 const useRepository = (id) => {
-  console.log(id);
+  // console.log(id);
   const [repository, setRepository] = useState();
 
   const { error, loading } = useQuery(GET_REPOSITORY, {
     variables: { id },
     fetchPolicy: "cache-and-network",
     onCompleted: (data) => {
-      console.log(data);
+      // console.log("data in useRepository hook is: ", data);
       setRepository(data.repository);
     },
   });

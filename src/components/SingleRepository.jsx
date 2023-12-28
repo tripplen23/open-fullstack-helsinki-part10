@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 
 const SingleRepository = () => {
   const { id } = useParams();
-  console.log("ID: ", id);
+  console.log("ID in this single repo is: ", id);
 
   const {
     repository,

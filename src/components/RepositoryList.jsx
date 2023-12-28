@@ -5,7 +5,6 @@ import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
 
 const styles = StyleSheet.create({
-  // TODO: For separate each Repository item
   separator: {
     height: 10,
   },
