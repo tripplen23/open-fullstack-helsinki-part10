@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Route, Routes, Navigate } from "react-router-native";
 
 import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import CreateReview from "./CreateReview";
 import RepositoryList from "./RepositoryList";
 import SingleRepository from "./SingleRepository";
@@ -24,6 +25,7 @@ const Main = () => {
       <Routes>
         <Route path="/" element={<RepositoryList />} />
         <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
         <Route path="/repositories/:id" element={<SingleRepository />} />
         <Route path="/create-a-review" element={<CreateReview />} />
         {/* Catching paths that don't match any previously defined path */}
