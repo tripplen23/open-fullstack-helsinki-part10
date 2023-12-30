@@ -61,7 +61,7 @@ const AppBar = () => {
 
   const currentUser = data?.me;
 
-  console.log("Current user is: ", data);
+  console.log("Current user is: ", currentUser);
 
   const onSignOut = async () => {
     await authStorage.removeAccessToken();
