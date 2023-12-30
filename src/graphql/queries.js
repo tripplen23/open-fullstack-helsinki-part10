@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { REPOSITORY_BASE_FIELDS, USER_BASE_FIELDS } from "./fragments";
+import { REPOSITORY_BASE_FIELDS } from "./fragments";
 
 export const GET_REPOSITORIES = gql`
   query repositories(
@@ -75,11 +75,30 @@ export const GET_REVIEWS = gql`
 `;
 
 export const GET_CURRENT_USER = gql`
-  query authorizedUser {
+  query getCurrentUser($includeReviews: Boolean = false) {
     me {
-      ...userBaseFields
+      username
+      id
+      reviewCount
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            text
+            rating
+            createdAt
+            user {
+              id
+              username
+            }
+            repository {
+              id
+              ownerName
+            }
+          }
+          cursor
+        }
+      }
     }
   }
-
-  ${USER_BASE_FIELDS}
 `;

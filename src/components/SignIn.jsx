@@ -77,7 +77,7 @@ const SignIn = () => {
     const { username, password } = values;
 
     await signIn({ username, password });
-    navigate("/", { replace: true });
+    navigate("/myreviews", { replace: true });
   };
 
   return <SignInContainer onSubmit={onSubmit} />;
